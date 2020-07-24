@@ -1,0 +1,28 @@
+/*
+  Author: Justin Clayton
+*/
+
+/* HTML selector rules */
+form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+form .helptext {
+  display: block;
+  margin-left: 10px;
+  font-style: italic;
+}
+
+form button {
+  align-self: center;
+}
+
+/* Class rules */
+.row {
+  margin-bottom: 15px;
+  justify-content: center;
+}
+
+/* ID rules */

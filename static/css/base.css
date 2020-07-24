@@ -1,0 +1,28 @@
+/*
+  Author: Justin Clayton
+*/
+
+/* HTML selector rules */
+header {
+  padding: 10px 100px;
+  background-color: rgb(101, 72, 128);
+  color: aliceblue;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 10px 0;
+  font-size: 2.2rem;
+}
+
+main.container {
+  padding: 50px;
+}
+
+/* Class rules */
+
+
+/* ID rules */
+

@@ -1,0 +1,26 @@
+/*
+  Author: Justin Clayton
+*/
+
+/* HTML selector rules */
+h1 a {
+  margin-left: 25px;
+  color: whitesmoke;
+}
+
+h1 a:hover {
+  color: thistle;
+  text-decoration: none;
+}
+
+header div#status a, header div#status p {
+  font-size: 1.4rem;
+  display: inline;
+  margin-right: 10px;
+}
+
+/* Class rules */
+
+
+/* ID rules */
+
