@@ -39,3 +39,6 @@ body{
                     width: 250px;
                     height: 40px;
                 }
+                form fieldset #dob{
+                    width: 150px;
+                }
