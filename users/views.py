@@ -5,8 +5,6 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout as logout_user
 from django.contrib.auth import get_user_model
 
-from .forms import LoginForm, RegisterForm
-
 
 def index(request):
     return redirect(reverse('users:login'))
@@ -14,29 +12,20 @@ def index(request):
 
 class Main(object):
     template = None
-    context = None
 
     def get(self, request):
-        return render(request, self.get_template(), self.get_context())
+        return render(request, self.get_template())
 
     def get_template(self):
         if self.template is not None:
             return self.template
         raise ImproperlyConfigured('Template not defined.')
 
-    def get_context(self):
-        if self.context is not None:
-            return self.context
-        raise ImproperlyConfigured('Context not defined.')
-
 
 class LoginView(Main, View):
     template = 'login.html'
-    context = {
-        'login_form': LoginForm()
-    }
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         user = authenticate(
             request,
             username=request.POST['username'],
@@ -51,29 +40,22 @@ class LoginView(Main, View):
 
 class RegisterView(Main, View):
     template = 'register.html'
-    context = {
-        'reg_form': RegisterForm()
-    }
 
     def post(self, request):
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            if request.POST['password1'] == request.POST['password2']:
-                user = get_user_model().objects.create_user(
-                    email=form.cleaned_data['email'],
-                    password=form.cleaned_data['password1'],
-                    first_name=form.cleaned_data['first_name'],
-                    last_name=form.cleaned_data['last_name']
-                )
-                login(request, user)
-                return redirect('app:index')
-
-            messages.error(request, 'Passwords must match')
-
-        for key, errors in form.errors.items():
-            for error in errors:
+        errors = get_user_model().objects.validate_register(request.POST)
+        if len(errors) > 0:
+            for key, error in errors.items():
                 messages.error(request, error)
-        return redirect(reverse('users:register'))
+            return redirect(reverse('users:register'))
+
+        user = get_user_model().objects.create_user(
+            email=request.POST['email'],
+            password=request.POST['password1'],
+            first_name=request.POST['first_name'],
+            last_name=request.POST['last_name']
+        )
+        login(request, user)
+        return redirect('app:index')
 
 
 def logout(request):
