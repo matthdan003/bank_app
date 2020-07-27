@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-import re
+from datetime import datetime, timedelta
+from re import compile as re_compile
 
 
 class UserManager(BaseUserManager):
@@ -17,7 +18,7 @@ class UserManager(BaseUserManager):
 
     def validate_register(self, postData):
         errors = {}
-        EMAIL_REGEX = re.compile(
+        EMAIL_REGEX = re_compile(
             r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.+_-]+.[a-zA-Z]+$'
         )
 
@@ -37,6 +38,13 @@ class UserManager(BaseUserManager):
         elif len(postData['first_name']) > 45:
             errors['last_name'] = 'Last name must be 45 or less characters'
 
+        # Birthdate validation
+        todaysDate = datetime.now().date()
+        if todaysDate < postData['birthday']:
+            errors['birthday'] = 'Birthday must be in the past'
+        elif todaysDate - postData['birthday'] < timedelta(days=365*18):
+            errors['birthday'] = 'Must be 18 years old to create an account'
+
         # Password validations
         if len(postData['password']) < 8:
             errors['password'] = 'Password must be 8 opr more characters'
@@ -51,6 +59,7 @@ class User(AbstractBaseUser):
     email = models.EmailField(max_length=255, unique=True)
     first_name = models.CharField(max_length=45)
     last_name = models.CharField(max_length=45)
+    birthday = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

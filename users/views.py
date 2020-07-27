@@ -52,7 +52,8 @@ class RegisterView(Main, View):
             email=request.POST['email'],
             password=request.POST['password1'],
             first_name=request.POST['first_name'],
-            last_name=request.POST['last_name']
+            last_name=request.POST['last_name'],
+            birthday=request.POST['birthday']
         )
         login(request, user)
         return redirect('app:index')
