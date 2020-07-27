@@ -6,39 +6,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  {% load static %}
+  <title>Login | Monolith Bank</title>
+  <!-- {% load static %} -->
   <link rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
     crossorigin="anonymous">
-  <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
-  <link rel="stylesheet" href="{% static 'css/base.css' %}">
-  <link rel="stylesheet" href="{% static 'users/css/users.css' %}">
+  <link rel="stylesheet" href="../static/css/login_reg.css">
+  <!-- <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  <link rel="stylesheet" href="{% static 'users/css/users.css' %}"> -->
 </head>
+
 <body>
-  <header>
-    <h1>Dojo Reads</h1>
-  </header>
-  <main class="container bg-light">
-    <div class="row">
-      <h2>Login</h2>
-    </div>
-    {% if messages %}
-      {% for message in messages %}
-      <p class="text-center text-danger">{{ message }}</p>
-      {% endfor %}
-    {% endif %}
-    <div class="row">
-      <form class="col-md-6" action="{% url 'users:login' %}" method="POST">
-        {% csrf_token %}
-        {{ login_form.as_p }}
-        <button class="btn btn-primary" type="submit">Submit!</button>
+  <div id="container">
+    <img src="../static/img/logo.png" alt="">
+    
+    <div id="login_form">
+      <p>Please sign in with your email and password:</p>
+      <form action="" method="post">
+        <fieldset>
+          <input type="text" name="email" id="email" placeholder="Email Address">
+        </fieldset>
+        <fieldset>
+          <input type="text" name="password" id="password" placeholder="Password">
+        </fieldset>
+        <fieldset>
+          <input type="submit" value="Login">
+        </fieldset>
       </form>
+      
+      
     </div>
-    <div class="row">
-      <a href="{% url 'users:register' %}">Not Registered?</a>
-    </div>
-  </main>
+    <a href="">Not a member? Create an account</a>
+
+  </div>
 </body>
 </html>
