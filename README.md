@@ -1,7 +1,3 @@
 # Monolith Bank App
 
-•	Crafted an easy-to-use banking app from end to end with Python using the Django framework
-•	Simulated transactions using Django models with one-to-many and many-to-many relationships
-•	Leveraged Bcrypt’s password hashing function to enhance user security during login and account creation
-•	Utilized bootstrap grid system for a responsive design
-•	Technologies used: HTML, CSS, Bootstrap, Python, Django, SQLite
+This is a banking application for a theoretical bank which allows for account creation, management, easy bill pay, and transfers to other bank members. It is written using class based views with Django and front end client is made using Bootstrap with Django HTML templates.
